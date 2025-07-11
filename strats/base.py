@@ -43,7 +43,7 @@ class BaseStrategy(bt.Strategy):
                     f'佣金: {order.executed.comm:.2f}, '
                     f'现金: {cash:.2f}, 账户价值: {value:.2f}'
                 ) 
-       
+
         # 订单失败日志
         elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log(f'订单失败, 代码: {order.data._name}, : {order.getstatusname()}')
+            self.log(f'订单失败, 代码: {order.data._name}, 状态: {order.getstatusname()}')

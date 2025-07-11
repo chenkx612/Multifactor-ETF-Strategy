@@ -1,13 +1,16 @@
-joinquant
+tmp*
+others/
+test.py
+data/
 
-# Python bytecode files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Distribution / packaging
+# Other Python artifacts
+*.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -19,31 +22,16 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual environments
-venv/
-.env
-.venv
-env.bak/
-venv.bak/
+# PyInstaller
+*.manifest
+*.spec
 
-# Testing
-.pytest_cache/
-.coverage
-*.log
-
-# IDE specific files
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Jupyter Notebook
-.ipynb_checkpoints/
-
-# OS specific files
-.DS_Store
-Thumbs.db
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt

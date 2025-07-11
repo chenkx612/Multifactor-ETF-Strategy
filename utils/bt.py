@@ -38,14 +38,15 @@ def backtest(strategy, codes=[], start_date='2025-01-01', end_date='2025-06-01',
 
     strat = result[0]
     returns = strat.analyzers.returns.get_analysis()
+
+    # 获取基准收益率
+    benchmark = pd.read_csv(benchmark_path, index_col=0, parse_dates=['datetime'])
+    benchmark = benchmark[start_date:end_date]
+    benchmark_returns = benchmark['close'].pct_change().fillna(0)
+    benchmark_time_return = (1 + benchmark_returns).cumprod() - 1
+    benchmark_rtot = benchmark_time_return.iat[-1]
+
     if verbose:    
-        # 获取基准收益率
-        benchmark = pd.read_csv(benchmark_path, index_col=0, parse_dates=['datetime'])
-        benchmark = benchmark[start_date:end_date]
-        benchmark_returns = benchmark['close'].pct_change().fillna(0)
-        benchmark_time_return = (1 + benchmark_returns).cumprod() - 1
-        benchmark_rtot = benchmark_time_return.iat[-1]
- 
         # 输出各项指标
         mdd = strat.analyzers.drawdown.get_analysis().max.drawdown
         ta = strat.analyzers.ta.get_analysis()
@@ -59,4 +60,4 @@ def backtest(strategy, codes=[], start_date='2025-01-01', end_date='2025-06-01',
             print(f"盈亏比: {-ta.won.pnl.average/ta.lost.pnl.average:.2f}")
         return strat.analyzers.time_return.get_analysis(), benchmark_time_return
 
-    return returns['rnorm100']
+    return returns['rnorm100'], benchmark_rtot
